@@ -1,0 +1,28 @@
+{
+  "name": "npccreator",
+  "version": "1.0.0",
+  "description": "Creates NPCs for TRPG",
+  "main": "index.js",
+  "scripts": {
+    "test": "(dropdb --if-exists test-api && createdb test-api)  && NODE_ENV=test mocha",
+    "dev": "nodemon index.js",
+    "NPCGen": "nodemon NPC.js",
+    "break": "nodemon breaking.js"
+  },
+  "author": "Daniel Beach",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.6",
+    "nodemon": "^2.0.5",
+    "pg": "^8.4.1",
+    "puppeteer": "^5.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.0",
+    "supertest": "^5.0.0"
+  }
+}
