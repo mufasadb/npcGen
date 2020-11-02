@@ -9,7 +9,7 @@ const raceURLs = {
     dragonborn: 'dragonkin-names',
     dragon: 'dragon_names',
     halfElf: 'half-elf-names',
-    halfing: 'hobbit_names',
+    halfling: 'hobbit_names',
     gnome: 'gnome-names',
     british: 'british-english-names',
     slovak: 'slovak-names',
@@ -24,7 +24,9 @@ const raceURLs = {
     teifling: 'dnd-tiefling-names',
     spanish: "spanish-names",
     goliath: "dnd-goliath-names",
-    firbolg: "dnd-firbolg-names"
+    firbolg: "dnd-firbolg-names",
+    elf: "elf_names",
+    tortle: "dnd-tortle-names"
 }
 
 function nameSourceSelector(race, location) {
@@ -35,7 +37,7 @@ function nameSourceSelector(race, location) {
         if (location == 'cairhien') { set = 'scottish' }
         if (location == 'borderlands') { set = 'asian' }
         if (location == 'chilera') { set = 'aussie' }
-        if (location == 'krethiz') { set = 'maori-names' }
+        if (location == 'krethiz') { set = 'kiwi' }
         if (location == 'shinar') { set = 'spanish' }
         return set
     }
@@ -82,7 +84,7 @@ async function pupLauncher() {
 async function fetchNewNames(urlAddition, isFemale) {
     try {
         if (!page) {
-           await pupLauncher()
+            await pupLauncher()
         }
 
         try { await page.goto(`${baseURL}/${urlAddition}.php`) } catch (e) { throw e }
@@ -118,6 +120,6 @@ function preScrapeNames() {
 module.exports = {
     nameByRaceGender: (race, gender, location) => {
         const set = nameSourceSelector(race, location)
-        return getNames(set, gender)
+        try { return getNames(set, gender) } catch (e) { throw e; }
     }
 }

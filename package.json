@@ -12,7 +12,9 @@
   "author": "Daniel Beach",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.782.0",
     "chalk": "^4.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.6",

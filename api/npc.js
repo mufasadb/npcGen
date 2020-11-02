@@ -14,13 +14,14 @@ function isValidID(req, res, next) {
     } else { next(new Error('Invalid ID')) }
 }
 
-function validnpc(obj){
+function validnpc(obj) {
     return true
 }
 
 
 router.get('/', (req, res) => {
     queries.getAllGeneric(objectType).then(npcs => {
+        console.log(`returning ${npcs.length} npcs`)
         res.json(npcs);
     })
 })
@@ -42,7 +43,8 @@ router.get('/:id', isValidID, (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    character.create(req.body).then(
+
+    character.create(req.body ? req.body : {}).then(
         (npc) => {
             queries.createGeneric(objectType, npc).then(npc => {
                 character.getDescription(npc[0])

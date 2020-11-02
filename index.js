@@ -5,9 +5,10 @@ const users = require('./api/user')
 const worlds = require('./api/world')
 const npc = require('./api/npc')
 const names = require('./nameGen')
-
+const cors = require('cors')
 
 const app = express();
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(
