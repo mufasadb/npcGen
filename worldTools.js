@@ -18,6 +18,12 @@ module.exports = {
         const res = worldObjects.citySpecificRaceWeight()[city] ? Randomize.weightedSplit(worldObjects.citySpecificRaceWeight()[city]) : getRaceByLocation(location)
         return res
     },
+    allRaces: () => {
+        return (worldObjects.raceList())
+    },
+    allLocations: () => {
+        return (worldObjects.locationList())
+    },
     location: () => {
         return Randomize.evenSplit(worldObjects.locationList())
     },
@@ -26,6 +32,11 @@ module.exports = {
     },
     city: (location) => {
         return Randomize.weightedSplit(worldObjects.cityWeighting()[location])
+    },
+    cityListByLocation: (location) => {
+        let list = worldObjects.cityWeighting()[location]
+        let returnable = list.map(city => {return city.name})
+        return returnable
     },
     originLocation: (location, race) => {
         const locationWeightList = []
@@ -37,5 +48,8 @@ module.exports = {
             locationWeightList.push({ name: name, weight: weight })
         }
         return Randomize.weightedSplit(locationWeightList)
+    },
+    age: (race) => {
+        return Math.floor(Math.random() * worldObjects.raceMaxAge()[race])
     }
 }

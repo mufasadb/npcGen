@@ -14,8 +14,27 @@ const locationList = [
     "picheap"
 ]
 
-const raceList = ['human', 'elf', 'halfElf', 'halfing', 'dwarf', 'gnome', 'halfOrc', 'tabaxi', 'tiefling', 'dragonborn', 'orc', 'tortle', 'genasi', 'goliath', 'firbolg', 'govlin', 'kenku']
+const raceList = ['human', 'elf', 'halfElf', 'halfing', 'dwarf', 'gnome', 'halfOrc', 'tabaxi', 'tiefling', 'dragonborn', 'orc', 'tortle', 'genasi', 'goliath', 'firbolg', 'goblin', 'kenku']
 
+const raceMaxAge = {
+    human: 80,
+    elf: 400,
+    halfElf: 250,
+    halfing: 150,
+    dwarf: 300,
+    gnome: 300,
+    halfOrc: 80,
+    tabaxi: 120,
+    tiefling: 120,
+    dragonborn: 250,
+    orc: 70,
+    tortle: 400,
+    genasi: 120,
+    goliath: 80,
+    firbolg: 60,
+    goblin: 60,
+    kenku: 60
+}
 const defaultSpread = [
     { name: "northern andor", weight: 2 },
     { name: "southern andor", weight: 1 },
@@ -702,5 +721,6 @@ module.exports = {
     weightedJobList: () => { return weightedJobList },
     originByRace: () => { return originByRace },
     cityWeighting: () => { return cityWeighting },
-    raceList: () => { return raceList }
+    raceList: () => { return raceList },
+    raceMaxAge: () => { return raceMaxAge }
 }

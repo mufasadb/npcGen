@@ -4,6 +4,8 @@ const router = express.Router();
 
 const queries = require('../db/queries')
 
+const World = require('../worldTools')
+
 
 const objectType = 'world'
 
@@ -26,11 +28,31 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/by-user/:id', (req, res, next)=>{
+router.get('/by-user/:id', (req, res, next) => {
     queries.getWorldByUser(32).then(worlds => {
         res.json(worlds)
     })
 })
+
+
+//specifcs for dropdown / option lists
+router.get('/locationList', (req, res, next) => {
+    console.log('location list')
+    res.json(World.allLocations())
+})
+
+router.get('/raceList', (req, res, next) => {
+    res.json(World.allRaces())
+})
+
+router.get('/cityList/:city', (req, res, next) => {
+    if (World.allLocations().includes(req.params.city)) {
+        res.json(World.cityListByLocation(req.params.city))
+    } else {
+        (next(new Error('invalid location')))
+    }
+})
+
 
 router.get('/:id', isValidID, (req, res, next) => {
     queries.getOneGeneric(objectType, req.params.id).then(world => {

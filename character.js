@@ -8,28 +8,28 @@ const WorldDetails = require('./worldObs')
 
 
 async function createNPC(obj) {
-    const { setLocation, setCity, setGender, setOriginLocation, setOriginCity, setJob, setRace, setAge } = obj
+    const { setName, setLocation, setCity, setGender, setOriginLocation, setOriginCity, setJob, setRace, setAge } = obj
     const resultingChar = {}
     let location = setLocation ? setLocation : getLocation()
     let race = setRace ? setRace : getRace(location)
     let gender = setGender ? setGender : getGender()
     let originLocation = setOriginLocation ? setOriginLocation : getOriginLocation(location, race)
     let originCity = setOriginCity ? setOriginCity : getCity(originLocation)
+    let job = setJob ? setJob : getJob();
 
 
-
-    resultingChar.location = location
-    resultingChar.race = race
-    resultingChar.gender = gender
-    resultingChar.job = getJob();
-    resultingChar.originLocation = originLocation
-    resultingChar.originCity = originCity
-    resultingChar.city = getCity(location)
+    resultingChar.location = location;
+    resultingChar.race = race;
+    resultingChar.gender = gender;
+    resultingChar.job = job
+    resultingChar.originLocation = originLocation;
+    resultingChar.originCity = originCity;
+    resultingChar.city = setCity ? setCity : getCity(location);
     resultingChar.voice = getVoice(originLocation, originCity, job, gender);
-    resultingChar.playerNotes = ''
-    resultingChar.name = await NameGen.nameByRaceGender(race, gender, location)
+    resultingChar.playerNotes = '';
+    resultingChar.name = setName ? setName : await NameGen.nameByRaceGender(race, gender, location);
     resultingChar.age = setAge ? setAge : Math.floor(Math.random() * 60);
-    resultingChar.userId = 32
+    resultingChar.userId = 32;
     return (resultingChar)
 }
 
@@ -41,6 +41,7 @@ function getGender() { return Random.evenSplit(["male", "female"]) };
 function getCity(location) { return World.city(location) };
 function getJob() { return World.job() };
 function getVoice(originLocation, originCity, job, gender) { return Voice.get(originLocation, originCity, job, gender) }
+function getAge(race) { return World.age(race) }
 
 function errorThrower(type) { throw { name: `no${type}`, message: `That ${type} is not a valid ${type} for this world` } }
 
@@ -48,36 +49,41 @@ module.exports = {
     create: async function (obj) {
         return await createNPC(obj)
     },
-    getDescription: async function (obj) {
+    description: async function (obj) {
         Description.getDescription(obj)
-    }, 
-    getLocation: () => { return getLocation() },
-    getRace: (location) => {
-        if (WorldDetails.locationList.includes(location)) {
+    },
+    location: () => { return getLocation() },
+    race: (location) => {
+        if (WorldDetails.locationList().includes(location)) {
             return getRace(location)
         } else {
             errorThrower("location")
         }
     },
-    getOriginLocation: (location, race) => {
-        if (WorldDetails.locationList.includes(location)) {
-            if (WorldDetails.raceList.includeS(race)) {
+    originLocation: (location, race) => {
+        if (WorldDetails.locationList().includes(location)) {
+            if (WorldDetails.raceList().includeS(race)) {
                 return getOriginLocation(location, race)
             } else { errorThrower("race") }
         } else { errorThrower("location") }
     },
-    getGender: () => { return getGender(); },
-    getCity: (location) => {
-        if (WorldDetails.locationList.includes(location)) {
+    gender: () => { return getGender(); },
+    city: (location) => {
+        if (WorldDetails.locationList().includes(location)) {
             return getCity(location)
         } else {
             errorThrower("location")
         }
     },
-    getJob: () => { return getJob() },
-    getVoice: (originLocation, originCity, job, gender) => {
-        if (WorldDetails.locationList.includes(originLocation)) {
+    job: () => { return getJob() },
+    voice: (originLocation, originCity, job, gender) => {
+        if (WorldDetails.locationList().includes(originLocation)) {
             return getVoice(originLocation, originCity, job, gender)
         } else { errorThrower("location") }
+    },
+    age: (race) => {
+        if (WorldDetails.raceMaxAge()[race]) {
+            return getAge(race)
+        } else { errorThrower("race") }
     }
 }
