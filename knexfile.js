@@ -1,18 +1,17 @@
 // Update with your config settings.
 
 module.exports = {
-
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      filename: 'postgress://location/api'
-    }
+      filename: "postgress://location/api",
+    },
   },
 
   test: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      filename: 'postgress://location/test-api'
-    }
+      filename: "postgress://location/test-api",
+    },
   },
 };

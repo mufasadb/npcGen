@@ -1,1 +1,18 @@
 stop duplicate names in the same world
+
+
+
+
+Create a store of images, race
+ImagueUse world
+
+Get more Images 
+    Adds 5 images to the list of available images
+    (that aren't already there)
+        error out if oyu cant get more images
+
+World Image Free Count
+    
+
+On re-get image, destroy the imageUse
+

@@ -29,6 +29,8 @@ const raceURLs = {
     tortle: "dnd-tortle-names"
 }
 
+const singleGenderRaces = ['tortle', 'dragonborn']
+
 function nameSourceSelector(race, location) {
     let set = 'british'
     if (race === 'human') {
@@ -53,7 +55,7 @@ async function getNames(set, gender) {
     if (!nameCollection[set][gender]) { nameCollection[set][gender] = [] }
     let returnable = ""
     let isFemale = false
-    if (gender === 'female') { isFemale = true }
+    if (gender === 'female' && !singleGenderRaces.includes(set)) { isFemale = true }
 
     if (!nameCollection[set][gender][0]) {
         nameCollection[set][gender] = await fetchNewNames(raceURLs[set], isFemale)
@@ -114,9 +116,7 @@ function preScrapeNames() {
     })
     console.log('done here')
 }
-// (async () => { console.log(await getNames('gnome', 'male')) })();
-// (async () => { console.log(await getNames('gnome', 'male')) })();
-// (async () => { console.log(await getNames('gnome', 'male')) })();
+
 module.exports = {
     nameByRaceGender: (race, gender, location) => {
         const set = nameSourceSelector(race, location)

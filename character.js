@@ -5,10 +5,12 @@ const Voice = require('./voice')
 const Description = require('./description')
 const WorldDetails = require('./worldObs')
 
+const defaultRacesForDescriptions = ["human", "teifling","dwarf","elf","halfling","gnome","halfOrc","halfElf"]
+
 
 
 async function createNPC(obj) {
-    const { setName, setLocation, setCity, setGender, setOriginLocation, setOriginCity, setJob, setRace, setAge } = obj
+    const { setName, setLocation, setCity, setGender, setOriginLocation, setOriginCity, setJob, setRace, setAge, userId } = obj
     const resultingChar = {}
     let location = setLocation ? setLocation : getLocation()
     let race = setRace ? setRace : getRace(location)
@@ -29,7 +31,7 @@ async function createNPC(obj) {
     resultingChar.playerNotes = '';
     resultingChar.name = setName ? setName : await NameGen.nameByRaceGender(race, gender, location);
     resultingChar.age = setAge ? setAge : Math.floor(Math.random() * 60);
-    resultingChar.userId = 32;
+    resultingChar.userId = userId? userId: 32
     return (resultingChar)
 }
 
@@ -47,10 +49,18 @@ function errorThrower(type) { throw { name: `no${type}`, message: `That ${type} 
 
 module.exports = {
     create: async function (obj) {
+        console.log(obj)
         return await createNPC(obj)
     },
     description: async function (obj) {
-        Description.getDescription(obj)
+        console.log(obj)
+        if (defaultRacesForDescriptions.includes(obj.race)) {
+            console.log(`The race ${obj.race} is the old type`)
+            Description.getDescriptionOriginal(obj)
+        } else {
+            console.log(`using new description type for the race of ${obj.race}`)
+            Description.getDescriptionPinterest(obj)
+        }
     },
     location: () => { return getLocation() },
     race: (location) => {

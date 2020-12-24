@@ -4,8 +4,8 @@ const port = 3000
 const users = require('./api/user')
 const worlds = require('./api/world')
 const npc = require('./api/npc')
-const names = require('./nameGen')
 const cors = require('cors')
+const item  =require('./api/item')
 
 const app = express();
 app.use(cors())
@@ -28,6 +28,7 @@ app.listen(port, () => {
 app.use('/api/v1/users', users);
 app.use('/api/v1/world', worlds);
 app.use('/api/v1/npc', npc);
+app.use('/api/v1/item', item);
 
 app.use(function (err, req, res, next) {
     res.locals.message = err.message;
