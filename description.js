@@ -69,7 +69,9 @@ async function getDescriptionOriginal(npc) {
   if (!page) {
     await pupLauncher();
   }
-  npc.description = getWordedDescription(npc.race, npc.gender, npc.job);
+  if (npc.description == null) {
+    npc.description = getWordedDescription(npc.race, npc.gender, npc.job);
+  }
   if (npc.gender === "male") {
     clickButton(
       `body > div > div > app-root > app-race-selector > div:nth-child(3) > a:nth-child(2) > div`

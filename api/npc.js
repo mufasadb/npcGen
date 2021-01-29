@@ -62,8 +62,6 @@ router.put('/:id/edit/:attribute', (req, res, next) => {
         character.description(char)
         res.json({ message: "success" })
     } else {
-
-
         console.log(`got a ${req.params.attribute} request`)
         const char = req.body
         const id = req.params.id
@@ -133,6 +131,12 @@ router.delete('/:id', isValidID, (req, res, next) => {
         })
     })
 })
+
+router.get("/:id/relations", (req, res, next) => {
+    queries.getRelationsForNpc(req.params.id).then((relations) => {
+      res.json(relations);
+    });
+  });
 
 router.post(`/:id/assign`, isValidID, (req, res, next) => {
     const newObject = {

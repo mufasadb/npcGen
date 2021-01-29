@@ -42,5 +42,11 @@ module.exports = {
   },
   checkIfImageExists(URL) {
     return knex("image").where("URL", URL);
-  },
+    },
+    getRelationsForItem(id) { 
+        return knex("relation").where("itemId", id);
+    },
+    getRelationsForNpc(id) { 
+        return knex("relation").where("npcId", id);
+    },
 };

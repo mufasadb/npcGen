@@ -15,8 +15,7 @@ function isValidID(req, res, next) {
 }
 
 function validRelationship(item) {
-    const hasType = typeof item.type == "string" && item.type.trim() != "";
-    console.log(hasName)
+    const hasType = typeof item.targetType == "string" && item.targetType.trim() != "";
   return hasType;
 }
 

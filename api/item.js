@@ -15,8 +15,8 @@ function isValidID(req, res, next) {
 }
 
 function validItem(item) {
-    const hasName = typeof item.name == "string" && item.name.trim() != "";
-    console.log(hasName)
+  const hasName = typeof item.name == "string" && item.name.trim() != "";
+  console.log(hasName);
   return hasName;
 }
 
@@ -29,6 +29,12 @@ router.get("/", (req, res) => {
 router.get("/by-user/:id", (req, res, next) => {
   queries.getitemByUser(32).then((items) => {
     res.json(items);
+  });
+});
+
+router.get("/:id/relations", (req, res, next) => {
+  queries.getRelationsForItem(req.params.id).then((relations) => {
+    res.json(relations);
   });
 });
 
@@ -55,9 +61,7 @@ router.post("/", (req, res, next) => {
 
 router.put("/:id", isValidID, (req, res, next) => {
   if (validItem(req.body)) {
-
     queries.updateGeneric(objectType, req.params.id, req.body).then((item) => {
-
       res.json(item[0]);
     });
   } else next(new Error("invalid item"));

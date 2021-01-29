@@ -5,7 +5,8 @@ const users = require('./api/user')
 const worlds = require('./api/world')
 const npc = require('./api/npc')
 const cors = require('cors')
-const item  =require('./api/item')
+const item = require('./api/item')
+const relation = require('./api/relation')
 
 const app = express();
 app.use(cors())
@@ -29,6 +30,7 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/world', worlds);
 app.use('/api/v1/npc', npc);
 app.use('/api/v1/item', item);
+app.use('/api/v1/relation', relation);
 
 app.use(function (err, req, res, next) {
     res.locals.message = err.message;

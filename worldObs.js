@@ -11,7 +11,8 @@ const locationList = [
     "terrabon",
     "trencouche",
     "borderlands",
-    "picheap"
+    "picheap",
+    "the tundra",
 ]
 
 const raceList = ['human', 'elf', 'halfElf', 'halfing', 'dwarf', 'gnome', 'halfOrc', 'tabaxi', 'tiefling', 'dragonborn', 'orc', 'tortle', 'genasi', 'goliath', 'firbolg', 'goblin', 'kenku']
@@ -48,7 +49,8 @@ const defaultSpread = [
     { name: "terrabon", weight: 1 },
     { name: "trencouche", weight: 1 },
     { name: "borderlands", weight: 1 },
-    { name: "picheap", weight: 1 }
+    { name: "picheap", weight: 1 },
+    {name: "the tundra", weight: 0}
 ]
 const citySpecificRaceWeight = {
     "baerlon": [
@@ -320,6 +322,25 @@ const locationRace = {
         { name: "kenku", weight: 1 }
     ],
     "shinar": [
+        { name: "human", weight: 150 },
+        { name: "elf", weight: 20 },
+        { name: "halfElf", weight: 30 },
+        { name: "halfling", weight: 30 },
+        { name: "dwarf", weight: 30 },
+        { name: "gnome", weight: 10 },
+        { name: "halfOrc", weight: 10 },
+        { name: "tabaxi", weight: 10 },
+        { name: "tiefling", weight: 20 },
+        { name: "dragonborn", weight: 10 },
+        { name: "orc", weight: 1 },
+        { name: "tortle", weight: 3 },
+        { name: "genasi", weight: 3 },
+        { name: "goliath", weight: 3 },
+        { name: "firbolg", weight: 3 },
+        { name: "goblin", weight: 1 },
+        { name: "kenku", weight: 1 }
+    ],
+    "the tundra": [
         { name: "human", weight: 150 },
         { name: "elf", weight: 20 },
         { name: "halfElf", weight: 30 },
@@ -710,7 +731,8 @@ const cityWeighting = {
     { name: "Horny", weight: 867 },
     { name: "Whitleham", weight: 858 },
     { name: "Penwar", weight: 777 },
-    { name: "Wathinra", weight: 772 },]
+        { name: "Wathinra", weight: 772 },], 
+    "the tundra": [{name: "Nightshade", weight: 1000}]
 }
 
 module.exports = {
